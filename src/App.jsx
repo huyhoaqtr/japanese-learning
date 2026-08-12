@@ -88,30 +88,38 @@ const katakanaData = [
   { romaji: "nu", kana: "ヌ" },
   { romaji: "ne", kana: "ネ" },
   { romaji: "no", kana: "ノ" },
-  // { romaji: "ha", kana: "ハ" },
-  // { romaji: "hi", kana: "ヒ" },
-  // { romaji: "fu", kana: "フ" },
-  // { romaji: "he", kana: "ヘ" },
-  // { romaji: "ho", kana: "ホ" },
-  // { romaji: "ma", kana: "マ" },
-  // { romaji: "mi", kana: "ミ" },
-  // { romaji: "mu", kana: "ム" },
-  // { romaji: "me", kana: "メ" },
-  // { romaji: "mo", kana: "モ" },
-  // { romaji: "ya", kana: "ヤ" },
-  // { romaji: "yu", kana: "ユ" },
-  // { romaji: "yo", kana: "ヨ" },
-  // { romaji: "ra", kana: "ラ" },
-  // { romaji: "ri", kana: "リ" },
-  // { romaji: "ru", kana: "ル" },
-  // { romaji: "re", kana: "レ" },
-  // { romaji: "ro", kana: "ロ" },
-  // { romaji: "wa", kana: "ワ" },
-  // { romaji: "wo", kana: "ヲ" },
-  // { romaji: "n", kana: "ン" },
+  { romaji: "ha", kana: "ハ" },
+  { romaji: "hi", kana: "ヒ" },
+  { romaji: "fu", kana: "フ" },
+  { romaji: "he", kana: "ヘ" },
+  { romaji: "ho", kana: "ホ" },
+  { romaji: "ma", kana: "マ" },
+  { romaji: "mi", kana: "ミ" },
+  { romaji: "mu", kana: "ム" },
+  { romaji: "me", kana: "メ" },
+  { romaji: "mo", kana: "モ" },
+  { romaji: "ya", kana: "ヤ" },
+  { romaji: "yu", kana: "ユ" },
+  { romaji: "yo", kana: "ヨ" },
+  { romaji: "ra", kana: "ラ" },
+  { romaji: "ri", kana: "リ" },
+  { romaji: "ru", kana: "ル" },
+  { romaji: "re", kana: "レ" },
+  { romaji: "ro", kana: "ロ" },
+  { romaji: "wa", kana: "ワ" },
+  { romaji: "wo", kana: "ヲ" },
+  { romaji: "n", kana: "ン" },
 ];
 
 const mixedData = [...hiraganaData, ...katakanaData];
+
+const gojuonLayout = [
+  "n", "wa", "ra", "ya", "ma", "ha", "na", "ta", "sa", "ka", "a",
+  null, null, "ri", null, "mi", "hi", "ni", "chi", "shi", "ki", "i",
+  null, null, "ru", "yu", "mu", "fu", "nu", "tsu", "su", "ku", "u",
+  null, null, "re", null, "me", "he", "ne", "te", "se", "ke", "e",
+  null, "wo", "ro", "yo", "mo", "ho", "no", "to", "so", "ko", "o"
+];
 
 const learningModes = {
   hiragana: {
@@ -195,7 +203,6 @@ function App() {
     setInput("");
     setSelectedAnswer("");
     setStatus("idle");
-    setShowCharacterTable(false);
     pickRandomCharacter(activeCharacters);
 
     return () => {
@@ -287,6 +294,18 @@ function App() {
     checkAnswer(answer);
   };
 
+  let displayCharacters = activeCharacters;
+  if (mode === "hiragana" || mode === "katakana") {
+    const charMap = new Map(activeCharacters.map((c) => [c.romaji, c]));
+    displayCharacters = gojuonLayout.map((romaji, index) => {
+      if (!romaji) return { empty: true, id: `empty-${index}` };
+      const char = charMap.get(romaji);
+      return char ? { ...char, id: char.kana } : { empty: true, id: `missing-${romaji}` };
+    });
+  } else {
+    displayCharacters = activeCharacters.map(c => ({ ...c, id: c.kana }));
+  }
+
   return (
     <>
       <div className="ambient-background" />
@@ -323,7 +342,7 @@ function App() {
                   key={modeKey}
                   type="button"
                   onClick={() => handleModeChange(modeKey)}
-                  className={`cursor-pointer rounded-2xl border px-4 py-3 text-left shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 ${isActive
+                  className={`cursor-pointer rounded-2xl border px-3 py-2 text-left shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 ${isActive
                     ? "border-amber-400/40 bg-white/80 dark:bg-white/10 text-amber-500 dark:text-white shadow-[0_0_20px_rgba(251,191,36,0.2)] dark:shadow-[0_0_20px_rgba(251,191,36,0.1)] ring-1 ring-amber-500/30 dark:ring-amber-400/30"
                     : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/10 bg-white/80 dark:bg-black/40 text-slate-500 dark:text-white/50 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/30 hover:bg-white/80 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-white"
                     }`}
@@ -346,7 +365,7 @@ function App() {
                   key={answerModeKey}
                   type="button"
                   onClick={() => setAnswerMode(answerModeKey)}
-                  className={`cursor-pointer rounded-xl px-4 py-3 text-center text-xs font-black uppercase tracking-widest transition-all duration-300 ${isActive
+                  className={`cursor-pointer rounded-xl px-3 py-2 text-center text-xs font-black uppercase tracking-widest transition-all duration-300 ${isActive
                     ? "border border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:border-white/20 bg-white/80 dark:bg-white/10 text-slate-700 dark:text-white shadow-lg"
                     : "border border-transparent text-slate-500 dark:text-white/50 hover:bg-white/80 backdrop-blur-xl dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-white"
                     }`}
@@ -481,30 +500,36 @@ function App() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-4 gap-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10">
-                {activeCharacters.map((character) => {
-                  const isCurrentCharacter =
-                    currentCharacter?.kana === character.kana;
+              <div className="overflow-x-auto pb-4">
+                <div className={`grid gap-1 sm:gap-2 min-w-[600px] sm:min-w-0 ${mode === "mixed" ? "grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10" : "grid-cols-11 max-w-5xl mx-auto"}`}>
+                  {displayCharacters.map((character) => {
+                    if (character.empty) {
+                      return <div key={character.id} className="col-span-1"></div>;
+                    }
 
-                  return (
-                    <div
-                      key={`${character.kana}-${character.romaji}`}
-                      className={`rounded-2xl border p-4 text-center transition-all duration-300 ${isCurrentCharacter
-                        ? "border-amber-400/60 bg-amber-100 dark:bg-amber-400/20 text-amber-500 dark:text-amber-300 shadow-[0_0_20px_rgba(251,191,36,0.15)] scale-110 z-10 relative"
-                        : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/5 bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white/80 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/20 hover:bg-white/80 dark:hover:bg-white/5"
-                        }`}
-                    >
-                      <div className="text-3xl font-black leading-none">
-                        {character.kana}
-                      </div>
+                    const isCurrentCharacter =
+                      currentCharacter?.kana === character.kana;
+
+                    return (
                       <div
-                        className={`mt-2 text-xs font-bold tracking-widest uppercase ${isCurrentCharacter ? "text-amber-500 dark:text-amber-200/90" : "text-slate-400 dark:text-white/40"}`}
+                        key={character.id}
+                        className={`rounded-2xl border p-2 sm:p-4 text-center transition-all duration-300 ${isCurrentCharacter
+                          ? "border-amber-400/60 bg-amber-100 dark:bg-amber-400/20 text-amber-500 dark:text-amber-300 shadow-[0_0_20px_rgba(251,191,36,0.15)] scale-110 z-10 relative"
+                          : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/5 bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white/80 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/20 hover:bg-white/80 dark:hover:bg-white/5"
+                          }`}
                       >
-                        {character.romaji}
+                        <div className="text-2xl sm:text-3xl font-black leading-none">
+                          {character.kana}
+                        </div>
+                        <div
+                          className={`mt-1 sm:mt-2 text-[10px] sm:text-xs font-bold tracking-widest uppercase ${isCurrentCharacter ? "text-amber-500 dark:text-amber-200/90" : "text-slate-400 dark:text-white/40"}`}
+                        >
+                          {character.romaji}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
