@@ -5,6 +5,7 @@ import "../App.css";
 import ThemeToggle from "../components/ThemeToggle";
 import { features } from "../data/features";
 import { useTheme } from "../hooks/useTheme";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const MotionLink = motion.create(Link);
 
@@ -44,6 +45,10 @@ const values = [
 ];
 
 function LandingPage() {
+  usePageMeta({
+    title: "Chinh Phục Tiếng Nhật | Nền tảng học tiếng Nhật toàn diện",
+    description: "Nền tảng học tiếng Nhật tương tác, cao cấp dành cho người Việt. Luyện thi JLPT, học từ vựng, ngữ pháp, kanji hiệu quả nhất.",
+  });
   const [isDarkMode, toggleTheme] = useTheme();
   const roadmapFeatures = features.filter((feature) => feature.id !== "home");
 
@@ -65,7 +70,7 @@ function LandingPage() {
             <div className="flex items-center gap-3">
               <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} className="w-10 h-10" />
               <MotionLink
-                to="/dashboard"
+                to="/trang-chu"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.96 }}
                 className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:border-white/10 bg-white/80 dark:bg-white/10 px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-white shadow-lg transition-colors duration-300 hover:bg-white/90 dark:hover:bg-white/20"
@@ -123,7 +128,7 @@ function LandingPage() {
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-col sm:flex-row items-center gap-4">
               <MotionLink
-                to="/dashboard"
+                to="/trang-chu"
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.96 }}
                 className="inline-flex items-center gap-2 rounded-2xl border border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:border-white/10 bg-white/80 backdrop-blur-xl dark:bg-white/10 px-8 py-4 text-sm font-bold tracking-widest text-slate-700 dark:text-white shadow-lg transition-colors duration-300 hover:bg-white/90 dark:hover:bg-white/20 uppercase"
@@ -283,7 +288,7 @@ function LandingPage() {
               Bắt đầu với bảng chữ cái Kana ngay hôm nay — hoàn toàn miễn phí.
             </p>
             <MotionLink
-              to="/dashboard"
+              to="/trang-chu"
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.96 }}
               className="inline-flex items-center gap-2 rounded-2xl border border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:border-white/10 bg-white/80 backdrop-blur-xl dark:bg-white/10 px-8 py-4 text-sm font-bold tracking-widest text-slate-700 dark:text-white shadow-lg transition-colors duration-300 hover:bg-white/90 dark:hover:bg-white/20 uppercase"

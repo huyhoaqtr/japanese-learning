@@ -2,6 +2,8 @@ import { Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { getLessonList } from "../data/lessons";
+import { getFeatureByPath } from "../data/features";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const containerVariants = {
   hidden: {},
@@ -14,6 +16,10 @@ const itemVariants = {
 };
 
 function LessonListPage() {
+  usePageMeta({
+    title: "Bài học | Chinh Phục Tiếng Nhật",
+    description: getFeatureByPath("/bai-hoc")?.description,
+  });
   const lessons = getLessonList();
 
   return (
@@ -70,7 +76,7 @@ function LessonListPage() {
           return (
             <motion.div key={lesson.id} variants={itemVariants} className="h-full">
               {isAvailable ? (
-                <Link to={`/lessons/${lesson.id}`} className="block h-full">
+                <Link to={`/bai-hoc/${lesson.id}`} className="block h-full">
                   {cardContent}
                 </Link>
               ) : (

@@ -13,13 +13,13 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route element={<AppShell />}>
-        <Route path="/dashboard" element={<HomePage />} />
-        <Route path="/kana-practice" element={<KanaPracticePage />} />
-        <Route path="/lessons" element={<LessonListPage />} />
-        <Route path="/lessons/:lessonId" element={<LessonDetailPage />} />
-        <Route path="/kanji" element={<ComingSoonPage key="kanji" feature={getFeatureByPath("/kanji")} />} />
-        <Route path="/jlpt-test" element={<ComingSoonPage key="jlpt-test" feature={getFeatureByPath("/jlpt-test")} />} />
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/trang-chu" element={<HomePage />} />
+        <Route path="/luyen-kana" element={<KanaPracticePage />} />
+        <Route path="/bai-hoc" element={<LessonListPage />} />
+        <Route path="/bai-hoc/:lessonId" element={<LessonDetailPage />} />
+        <Route path="/kanji-co-ban" element={<ComingSoonPage key="kanji" feature={getFeatureByPath("/kanji-co-ban")} />} />
+        <Route path="/luyen-de-jlpt" element={<ComingSoonPage key="jlpt-test" feature={getFeatureByPath("/luyen-de-jlpt")} />} />
+        <Route path="*" element={<Navigate to="/trang-chu" replace />} />
       </Route>
     </Routes>
   );

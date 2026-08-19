@@ -1,11 +1,11 @@
 # Chinh Phục Tiếng Nhật 🇯🇵
 
-Nền tảng học tiếng Nhật N5 dành cho người Việt. Khách truy cập vào landing page giới thiệu (`/`) trước, bấm "Bắt đầu" để vào app thật (`/dashboard` và các mục học tập, mỗi mục có URL riêng, tổ chức thành sidebar desktop / bottom tab bar mobile).
+Nền tảng học tiếng Nhật N5 dành cho người Việt. Khách truy cập vào landing page giới thiệu (`/`) trước, bấm "Bắt đầu" để vào app thật (`/trang-chu` và các mục học tập, mỗi mục có URL riêng, tổ chức thành sidebar desktop / bottom tab bar mobile).
 
 ## Các mục ✨
 
 - **Landing page** (`/`): giới thiệu nền tảng, số liệu nổi bật, lộ trình tính năng, CTA vào app — không có sidebar/nav.
-- **Trang chủ** (`/dashboard`): tổng quan tiến độ và lối vào từng mục học tập, nằm trong app shell.
+- **Trang chủ** (`/trang-chu`): tổng quan tiến độ và lối vào từng mục học tập, nằm trong app shell.
 - **Luyện Kana** (đã có): ôn tập bằng cách gõ romaji hoặc trắc nghiệm, có bảng tra cứu/ví dụ, tính điểm và lưu tổng số câu trả lời đúng. 8 nhóm âm: Hiragana, Katakana, Hỗn hợp, Âm đục, Âm ghép, Âm đục ghép, Âm ngắt, Trường âm (2 nhóm cuối luyện qua ví dụ từ thực tế kèm nghĩa tiếng Việt).
 - **Từ vựng, Ngữ pháp N5, Kanji cơ bản, Luyện đề JLPT** (sắp ra mắt): đã có route + trang giới thiệu riêng, sẽ triển khai nội dung ở các bản sau.
 

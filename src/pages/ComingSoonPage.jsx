@@ -1,10 +1,15 @@
 import { Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const MotionLink = motion.create(Link);
 
 function ComingSoonPage({ feature }) {
+  usePageMeta({
+    title: `${feature.label} | Chinh Phục Tiếng Nhật`,
+    description: feature.description,
+  });
   const Icon = feature.icon;
 
   return (

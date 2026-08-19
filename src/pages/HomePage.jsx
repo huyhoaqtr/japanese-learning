@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { features } from "../data/features";
 import { usePersistentCounter } from "../hooks/usePersistentCounter";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const containerVariants = {
   hidden: {},
@@ -15,6 +16,10 @@ const itemVariants = {
 };
 
 function HomePage() {
+  usePageMeta({
+    title: "Trang chủ | Chinh Phục Tiếng Nhật",
+    description: "Tổng quan lộ trình học N5, tiến độ luyện tập và lối vào từng mục học tập.",
+  });
   const [totalCorrect] = usePersistentCounter("kana_total_correct");
   const featureCards = features.filter((feature) => feature.id !== "home");
   const availableCount = featureCards.filter((f) => f.status === "available").length;
@@ -62,7 +67,7 @@ function HomePage() {
           className="inline-block"
         >
           <Link
-            to="/kana-practice"
+            to="/luyen-kana"
             className="cursor-pointer inline-block rounded-2xl border border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:border-white/10 bg-white/70 backdrop-blur-xl dark:bg-white/10 px-8 py-4 text-sm font-bold tracking-widest text-slate-700 dark:text-white shadow-lg transition-colors duration-300 hover:bg-white/80 dark:hover:bg-white/20 uppercase"
           >
             Bắt đầu luyện Kana

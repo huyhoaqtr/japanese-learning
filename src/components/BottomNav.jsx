@@ -14,7 +14,7 @@ function BottomNav() {
         <NavLink
           key={id}
           to={path}
-          end={path === "/dashboard"}
+          end={path === "/trang-chu"}
           className={({ isActive }) => `min-w-0 ${isActive ? "flex-[3]" : "flex-1"}`}
         >
           {({ isActive }) => (

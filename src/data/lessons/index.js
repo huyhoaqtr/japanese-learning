@@ -1,4 +1,4 @@
-import bai01 from "./bai-01";
+import bai01 from "./bai-01.js";
 
 const lessons = [bai01];
 

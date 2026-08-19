@@ -3,8 +3,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { gojuonLayout, learningModes, modeGroups } from "../data/kana";
 import { answerModes, createMultipleChoiceOptions } from "../data/quizUtils";
+import { getFeatureByPath } from "../data/features";
 import { usePersistentCounter } from "../hooks/usePersistentCounter";
 import { useSpeak } from "../hooks/useSpeak";
+import { usePageMeta } from "../hooks/usePageMeta";
 import SpeakButton from "../components/SpeakButton";
 
 const getCharacterSizeClass = (kana = "") => {
@@ -14,6 +16,10 @@ const getCharacterSizeClass = (kana = "") => {
 };
 
 function KanaPracticePage() {
+  usePageMeta({
+    title: "Luyện Kana | Chinh Phục Tiếng Nhật",
+    description: getFeatureByPath("/luyen-kana")?.description,
+  });
   const [mode, setMode] = useState("hiragana");
   const [answerMode, setAnswerMode] = useState("typing");
   const [currentCharacter, setCurrentCharacter] = useState(null);

@@ -27,7 +27,7 @@ function Sidebar({ isDarkMode, onToggleTheme }) {
           <NavLink
             key={id}
             to={path}
-            end={path === "/dashboard"}
+            end={path === "/trang-chu"}
             className={({ isActive }) =>
               `relative flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold tracking-wide transition-colors duration-300 ${
                 isActive

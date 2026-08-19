@@ -9,6 +9,7 @@ import TranslationSection from "../components/lesson/TranslationSection";
 import ReferenceTable from "../components/lesson/ReferenceTable";
 import GrammarSection from "../components/lesson/GrammarSection";
 import VocabPractice from "../components/lesson/VocabPractice";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const TABS = [
   { id: "vocab", label: "Từ vựng" },
@@ -22,6 +23,15 @@ function LessonDetailPage() {
   const { lessonId } = useParams();
   const lesson = getLessonById(lessonId);
   const [activeTab, setActiveTab] = useState(TABS[0].id);
+
+  usePageMeta({
+    title: lesson
+      ? `${lesson.title} | Chinh Phục Tiếng Nhật`
+      : "Bài học | Chinh Phục Tiếng Nhật",
+    description: lesson
+      ? `Từ vựng, hội thoại và ngữ pháp ${lesson.title} theo giáo trình Minna no Nihongo, kèm luyện tập.`
+      : undefined,
+  });
 
   if (!lesson) {
     return (
@@ -37,7 +47,7 @@ function LessonDetailPage() {
             Bài học này chưa có nội dung hoặc không tồn tại. Quay lại danh sách để chọn bài khác.
           </p>
           <Link
-            to="/lessons"
+            to="/bai-hoc"
             className="cursor-pointer rounded-2xl border border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:border-white/10 bg-white/70 backdrop-blur-xl dark:bg-white/10 px-6 py-3 text-sm font-bold tracking-widest text-slate-700 dark:text-white transition-colors duration-300 hover:bg-white/80 dark:hover:bg-white/20 uppercase"
           >
             Về danh sách bài học
@@ -50,7 +60,7 @@ function LessonDetailPage() {
   return (
     <div className="flex flex-col">
       <Link
-        to="/lessons"
+        to="/bai-hoc"
         className="mb-4 inline-flex items-center gap-1 self-start text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-white/40 hover:text-amber-500 dark:hover:text-amber-300 transition-colors"
       >
         <ChevronLeft className="h-4 w-4" />

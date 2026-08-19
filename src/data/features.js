@@ -3,14 +3,14 @@ import { BookOpenText, FileText, Home, Languages, PenLine } from "lucide-react";
 export const features = [
   {
     id: "home",
-    path: "/dashboard",
+    path: "/trang-chu",
     label: "Trang chủ",
     icon: Home,
     showInNav: true,
   },
   {
     id: "kana",
-    path: "/kana-practice",
+    path: "/luyen-kana",
     label: "Luyện Kana",
     icon: Languages,
     status: "available",
@@ -19,7 +19,7 @@ export const features = [
   },
   {
     id: "lessons",
-    path: "/lessons",
+    path: "/bai-hoc",
     label: "Bài học",
     icon: BookOpenText,
     status: "available",
@@ -28,7 +28,7 @@ export const features = [
   },
   {
     id: "kanji",
-    path: "/kanji",
+    path: "/kanji-co-ban",
     label: "Kanji cơ bản",
     icon: PenLine,
     status: "coming-soon",
@@ -37,7 +37,7 @@ export const features = [
   },
   {
     id: "jlpt",
-    path: "/jlpt-test",
+    path: "/luyen-de-jlpt",
     label: "Luyện đề JLPT",
     icon: FileText,
     status: "coming-soon",
