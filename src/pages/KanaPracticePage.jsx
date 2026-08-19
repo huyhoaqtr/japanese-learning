@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { gojuonLayout, learningModes, modeGroups } from "../data/kana";
 import { answerModes, createMultipleChoiceOptions } from "../data/quizUtils";
 import { usePersistentCounter } from "../hooks/usePersistentCounter";
+import { useSpeak } from "../hooks/useSpeak";
+import SpeakButton from "../components/SpeakButton";
 
 const getCharacterSizeClass = (kana = "") => {
   if (kana.length <= 2) return "text-[130px]";
@@ -24,6 +26,7 @@ function KanaPracticePage() {
   const [showCharacterTable, setShowCharacterTable] = useState(false);
   const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
   const [, incrementLifetimeCorrect] = usePersistentCounter("kana_total_correct");
+  const { speak } = useSpeak();
   const inputRef = useRef(null);
   const remainingCharacterIndexesRef = useRef([]);
   const advanceTimeoutRef = useRef(null);
@@ -295,6 +298,14 @@ function KanaPracticePage() {
             </motion.div>
           </div>
 
+          {currentCharacter && (
+            <SpeakButton
+              text={currentCharacter.kana}
+              size="h-5 w-5"
+              className="mb-2 -mt-2 bg-white/70 dark:bg-black/40 border border-white/80 dark:border-white/10 shadow-sm"
+            />
+          )}
+
           {/* Hint */}
           <div className="h-8 mb-8 flex items-center justify-center">
             {showHint ? (
@@ -452,10 +463,11 @@ function KanaPracticePage() {
                             transition={{ type: "spring", stiffness: 400, damping: 32 }}
                           />
                         )}
-                        <div className="relative z-10 flex items-center gap-4">
+                        <div className="relative z-10 flex items-center gap-2">
                           <span className={`text-xl font-black leading-none ${isCurrentCharacter ? "text-amber-500 dark:text-amber-300" : "text-slate-700 dark:text-white"}`}>
                             {word.kana}
                           </span>
+                          <SpeakButton text={word.kana} />
                           <span className={`text-xs font-bold uppercase tracking-widest ${isCurrentCharacter ? "text-amber-500 dark:text-amber-200/90" : "text-slate-400 dark:text-white/40"}`}>
                             {word.romaji}
                           </span>
@@ -469,7 +481,7 @@ function KanaPracticePage() {
                 </div>
               ) : (
                 <div className="overflow-x-auto pb-4">
-                  <div className={`grid gap-1 sm:gap-2 ${isGojuonMode ? "min-w-[600px] sm:min-w-0 grid-cols-11 max-w-5xl mx-auto" : "grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10"}`}>
+                  <div className={`grid gap-1 sm:gap-2 ${isGojuonMode ? "min-w-[600px] grid-cols-11 max-w-5xl mx-auto" : "grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10"}`}>
                     {displayCharacters.map((character) => {
                       if (character.empty) {
                         return <div key={character.id} className="col-span-1"></div>;
@@ -479,9 +491,11 @@ function KanaPracticePage() {
                         currentCharacter?.kana === character.kana;
 
                       return (
-                        <div
+                        <button
+                          type="button"
                           key={character.id}
-                          className={`relative rounded-2xl border p-2 sm:p-4 text-center transition-colors duration-300 ${isCurrentCharacter
+                          onClick={() => speak(character.kana)}
+                          className={`relative cursor-pointer rounded-2xl border p-2 text-center transition-colors duration-300 ${isCurrentCharacter
                             ? "border-amber-400/60 text-amber-500 dark:text-amber-300 z-10"
                             : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/5 bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white/80 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/20 hover:bg-white/80 dark:hover:bg-white/5"
                             }`}
@@ -501,7 +515,7 @@ function KanaPracticePage() {
                           >
                             {character.romaji}
                           </div>
-                        </div>
+                        </button>
                       );
                     })}
                   </div>

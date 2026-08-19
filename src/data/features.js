@@ -1,4 +1,4 @@
-import { BookOpenText, FileText, Home, Languages, NotebookPen, PenLine } from "lucide-react";
+import { BookOpenText, FileText, Home, Languages, PenLine } from "lucide-react";
 
 export const features = [
   {
@@ -18,22 +18,13 @@ export const features = [
     description: "Luyện Hiragana, Katakana, âm đục, âm ghép, âm ngắt, trường âm qua bài tập ngẫu nhiên có ví dụ.",
   },
   {
-    id: "vocab",
-    path: "/vocabulary",
-    label: "Từ vựng",
+    id: "lessons",
+    path: "/lessons",
+    label: "Bài học",
     icon: BookOpenText,
-    status: "coming-soon",
+    status: "available",
     showInNav: true,
-    description: "Flashcard từ vựng N5/N4 theo chủ đề: gia đình, thời gian, đồ ăn...",
-  },
-  {
-    id: "grammar",
-    path: "/grammar",
-    label: "Ngữ pháp N5",
-    icon: NotebookPen,
-    status: "coming-soon",
-    showInNav: true,
-    description: "Bài học và bài tập ngữ pháp N5, giải thích chi tiết bằng tiếng Việt.",
+    description: "Từ vựng, hội thoại và ngữ pháp N5 theo từng bài học, bám sát giáo trình Minna no Nihongo.",
   },
   {
     id: "kanji",

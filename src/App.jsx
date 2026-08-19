@@ -5,6 +5,8 @@ import ComingSoonPage from "./pages/ComingSoonPage";
 import HomePage from "./pages/HomePage";
 import KanaPracticePage from "./pages/KanaPracticePage";
 import LandingPage from "./pages/LandingPage";
+import LessonListPage from "./pages/LessonListPage";
+import LessonDetailPage from "./pages/LessonDetailPage";
 
 function App() {
   return (
@@ -13,8 +15,8 @@ function App() {
       <Route element={<AppShell />}>
         <Route path="/dashboard" element={<HomePage />} />
         <Route path="/kana-practice" element={<KanaPracticePage />} />
-        <Route path="/vocabulary" element={<ComingSoonPage key="vocabulary" feature={getFeatureByPath("/vocabulary")} />} />
-        <Route path="/grammar" element={<ComingSoonPage key="grammar" feature={getFeatureByPath("/grammar")} />} />
+        <Route path="/lessons" element={<LessonListPage />} />
+        <Route path="/lessons/:lessonId" element={<LessonDetailPage />} />
         <Route path="/kanji" element={<ComingSoonPage key="kanji" feature={getFeatureByPath("/kanji")} />} />
         <Route path="/jlpt-test" element={<ComingSoonPage key="jlpt-test" feature={getFeatureByPath("/jlpt-test")} />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />

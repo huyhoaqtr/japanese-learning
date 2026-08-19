@@ -17,12 +17,21 @@ export const shuffleItems = (items) => {
   return shuffledItems;
 };
 
-export const createMultipleChoiceOptions = (characters, correctRomaji) => {
-  const distractors = [...new Set(characters.map((character) => character.romaji))]
-    .filter((romaji) => romaji !== correctRomaji);
+export const createMultipleChoiceOptions = (
+  items,
+  correctValue,
+  getValue = (item) => item.romaji,
+) => {
+  const distractors = [...new Set(items.map(getValue))]
+    .filter((value) => value !== correctValue);
 
   return shuffleItems([
-    correctRomaji,
+    correctValue,
     ...shuffleItems(distractors).slice(0, 3),
   ]);
+};
+
+export const getShortMeaning = (meaning) => {
+  const beforeParen = meaning.split("(")[0].trim();
+  return beforeParen || meaning.trim();
 };
