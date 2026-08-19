@@ -29,13 +29,20 @@ function pickJapaneseVoice() {
   return voices[0];
 }
 
+// speechSynthesis không coi khoảng trắng là điểm ngắt (tiếng Nhật viết liền không
+// có khoảng trắng giữa từ) — khoảng trắng trong data chỉ để hiển thị dễ đọc. Đổi
+// thành dấu 、 để engine TTS thực sự ngắt hơi ở đó, không đọc dính liền một mạch.
+function toSpokenText(text) {
+  return text.replace(/[ 　]+/g, "、");
+}
+
 export function useSpeak() {
   const speak = (text) => {
     if (!isSupported || !text) return;
 
     window.speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    const utterance = new SpeechSynthesisUtterance(toSpokenText(text));
     utterance.lang = "ja-JP";
     utterance.rate = 0.85;
     utterance.pitch = 1;

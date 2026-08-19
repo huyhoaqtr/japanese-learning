@@ -31,7 +31,8 @@ function KanaPracticePage() {
   const [showHint, setShowHint] = useState(false);
   const [showCharacterTable, setShowCharacterTable] = useState(false);
   const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
-  const [, incrementLifetimeCorrect] = usePersistentCounter("kana_total_correct");
+  const [, incrementLifetimeCorrect] =
+    usePersistentCounter("kana_total_correct");
   const { speak } = useSpeak();
   const inputRef = useRef(null);
   const remainingCharacterIndexesRef = useRef([]);
@@ -140,8 +141,12 @@ function KanaPracticePage() {
   const isGojuonMode = mode === "hiragana" || mode === "katakana";
 
   const modeEntries = Object.entries(learningModes);
-  const basicModeEntries = modeEntries.filter(([, option]) => option.group === "basic");
-  const extendedModeEntries = modeEntries.filter(([, option]) => option.group === "extended");
+  const basicModeEntries = modeEntries.filter(
+    ([, option]) => option.group === "basic",
+  );
+  const extendedModeEntries = modeEntries.filter(
+    ([, option]) => option.group === "extended",
+  );
 
   const renderModeListItem = ([modeKey, option]) => {
     const isActive = modeKey === mode;
@@ -154,10 +159,11 @@ function KanaPracticePage() {
           handleModeChange(modeKey);
           setIsModeMenuOpen(false);
         }}
-        className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-bold uppercase tracking-wide transition-colors duration-200 ${isActive
-          ? "bg-amber-400/15 text-amber-500 dark:text-amber-300"
-          : "text-slate-600 dark:text-white/60 hover:bg-white/60 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-white"
-          }`}
+        className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-bold uppercase tracking-wide transition-colors duration-200 ${
+          isActive
+            ? "bg-amber-400/15 text-amber-500 dark:text-amber-300"
+            : "text-slate-600 dark:text-white/60 hover:bg-white/60 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-white"
+        }`}
       >
         <span>{option.label}</span>
         {isActive && <Check className="h-4 w-4 flex-shrink-0" />}
@@ -171,7 +177,9 @@ function KanaPracticePage() {
     displayCharacters = gojuonLayout.map((romaji, index) => {
       if (!romaji) return { empty: true, id: `empty-${index}` };
       const char = charMap.get(romaji);
-      return char ? { ...char, id: char.kana } : { empty: true, id: `missing-${romaji}` };
+      return char
+        ? { ...char, id: char.kana }
+        : { empty: true, id: `missing-${romaji}` };
     });
   } else {
     displayCharacters = activeCharacters.map((c) => ({ ...c, id: c.kana }));
@@ -220,7 +228,10 @@ function KanaPracticePage() {
           <AnimatePresence>
             {isModeMenuOpen && (
               <>
-                <div className="fixed inset-0 z-40" onClick={() => setIsModeMenuOpen(false)} />
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setIsModeMenuOpen(false)}
+                />
                 <motion.div
                   initial={{ opacity: 0, y: -8, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -235,7 +246,9 @@ function KanaPracticePage() {
                   <p className="px-3 pb-1 pt-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/30">
                     {modeGroups.extended}
                   </p>
-                  {extendedModeEntries.map((entry) => renderModeListItem(entry))}
+                  {extendedModeEntries.map((entry) =>
+                    renderModeListItem(entry),
+                  )}
                 </motion.div>
               </>
             )}
@@ -253,10 +266,11 @@ function KanaPracticePage() {
                 type="button"
                 onClick={() => setAnswerMode(answerModeKey)}
                 whileTap={{ scale: 0.96 }}
-                className={`relative cursor-pointer rounded-xl px-4 py-2.5 text-center text-xs font-black uppercase tracking-widest transition-colors duration-300 ${isActive
-                  ? "text-slate-700 dark:text-white"
-                  : "text-slate-500 dark:text-white/50 hover:bg-white/80 backdrop-blur-xl dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-white"
-                  }`}
+                className={`relative cursor-pointer rounded-xl px-4 py-2.5 text-center text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
+                  isActive
+                    ? "text-slate-700 dark:text-white"
+                    : "text-slate-500 dark:text-white/50 hover:bg-white/80 backdrop-blur-xl dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-white"
+                }`}
               >
                 {isActive && (
                   <motion.div
@@ -352,12 +366,13 @@ function KanaPracticePage() {
                 type="text"
                 value={input}
                 onChange={handleInputChange}
-                className={`w-full max-w-[280px] text-center text-2xl sm:text-3xl font-black py-4 px-6 rounded-2xl bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white border shadow-inner placeholder:text-slate-400 dark:placeholder:text-white/20 focus:outline-none focus:ring-2 transition-all duration-300 ${status === "wrong"
-                  ? "focus:ring-rose-500/50 border-rose-500/50"
-                  : status === "correct"
-                    ? "focus:ring-amber-400/50 border-amber-400/50"
-                    : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/10 focus:ring-black/10 dark:focus:ring-white/20 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/20"
-                  }`}
+                className={`w-full max-w-[280px] text-center text-2xl sm:text-3xl font-black py-4 px-6 rounded-2xl bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white border shadow-inner placeholder:text-slate-400 dark:placeholder:text-white/20 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                  status === "wrong"
+                    ? "focus:ring-rose-500/50 border-rose-500/50"
+                    : status === "correct"
+                      ? "focus:ring-amber-400/50 border-amber-400/50"
+                      : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/10 focus:ring-black/10 dark:focus:ring-white/20 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/20"
+                }`}
                 placeholder="rōmaji"
                 autoFocus
                 autoComplete="off"
@@ -392,13 +407,16 @@ function KanaPracticePage() {
                     whileHover={status === "correct" ? {} : { y: -4 }}
                     whileTap={status === "correct" ? {} : { scale: 0.95 }}
                     animate={shouldShowWrong ? { x: [0, -6, 6, -4, 4, 0] } : {}}
-                    transition={shouldShowWrong ? { duration: 0.4 } : { duration: 0.2 }}
-                    className={`cursor-pointer rounded-2xl border px-5 py-5 text-lg sm:text-xl font-black tracking-wider uppercase shadow-lg backdrop-blur-xl transition-colors duration-300 disabled:cursor-default ${shouldShowCorrect
-                      ? "border-amber-400/50 bg-amber-100 dark:bg-amber-400/20 text-amber-500 dark:text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.2)] dark:shadow-[0_0_20px_rgba(251,191,36,0.2)]"
-                      : shouldShowWrong
-                        ? "border-rose-500/50 bg-rose-100 dark:bg-rose-500/20 text-rose-500 dark:text-rose-300 shadow-[0_0_20px_rgba(225,29,72,0.2)] dark:shadow-[0_0_20px_rgba(244,63,94,0.2)]"
-                        : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/10 bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white hover:border-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:border-white/30 hover:bg-white/80 dark:hover:bg-white/10"
-                      }`}
+                    transition={
+                      shouldShowWrong ? { duration: 0.4 } : { duration: 0.2 }
+                    }
+                    className={`cursor-pointer rounded-2xl border px-5 py-5 text-lg sm:text-xl font-black tracking-wider uppercase shadow-lg backdrop-blur-xl transition-colors duration-300 disabled:cursor-default ${
+                      shouldShowCorrect
+                        ? "border-amber-400/50 bg-amber-100 dark:bg-amber-400/20 text-amber-500 dark:text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.2)] dark:shadow-[0_0_20px_rgba(251,191,36,0.2)]"
+                        : shouldShowWrong
+                          ? "border-rose-500/50 bg-rose-100 dark:bg-rose-500/20 text-rose-500 dark:text-rose-300 shadow-[0_0_20px_rgba(225,29,72,0.2)] dark:shadow-[0_0_20px_rgba(244,63,94,0.2)]"
+                          : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/10 bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white hover:border-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:border-white/30 hover:bg-white/80 dark:hover:bg-white/10"
+                    }`}
                   >
                     {option}
                   </motion.button>
@@ -424,19 +442,20 @@ function KanaPracticePage() {
 
       {/* Character Table */}
       <AnimatePresence>
-        {showCharacterTable && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="w-full overflow-hidden"
-          >
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="w-full overflow-hidden"
+        >
+          <div className={showCharacterTable ? "w-full" : "hidden"}>
             <div className="mt-8 w-full rounded-[2.5rem] glass-panel p-8">
               <div className="mb-8 flex flex-col gap-2 text-slate-700 dark:text-white sm:flex-row sm:items-end sm:justify-between border-b border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:border-white/10 pb-6">
                 <div>
                   <h2 className="text-2xl font-black tracking-widest uppercase">
-                    {activeMode.isWordBased ? "Ví dụ" : "Bảng chữ"} {activeMode.label}
+                    {activeMode.isWordBased ? "Ví dụ" : "Bảng chữ"}{" "}
+                    {activeMode.label}
                   </h2>
                   <p className="text-sm font-medium text-slate-500 dark:text-white/50 mt-2">
                     {activeMode.isWordBased
@@ -445,36 +464,47 @@ function KanaPracticePage() {
                   </p>
                 </div>
                 <p className="text-xs font-bold tracking-widest text-amber-500 dark:text-amber-200/80 uppercase">
-                  {activeCharacters.length} {activeMode.isWordBased ? "từ" : "chữ"}
+                  {activeCharacters.length}{" "}
+                  {activeMode.isWordBased ? "từ" : "chữ"}
                 </p>
               </div>
 
               {activeMode.isWordBased ? (
                 <div className="space-y-2">
                   {displayCharacters.map((word) => {
-                    const isCurrentCharacter = currentCharacter?.kana === word.kana;
+                    const isCurrentCharacter =
+                      currentCharacter?.kana === word.kana;
 
                     return (
                       <div
                         key={word.id}
-                        className={`relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border p-4 transition-colors duration-300 ${isCurrentCharacter
-                          ? "border-amber-400/60 z-10"
-                          : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/5 bg-white/70 dark:bg-black/40 hover:border-white dark:hover:border-white/20 hover:bg-white/80 dark:hover:bg-white/5"
-                          }`}
+                        className={`relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border p-4 transition-colors duration-300 ${
+                          isCurrentCharacter
+                            ? "border-amber-400/60 z-10"
+                            : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/5 bg-white/70 dark:bg-black/40 hover:border-white dark:hover:border-white/20 hover:bg-white/80 dark:hover:bg-white/5"
+                        }`}
                       >
                         {isCurrentCharacter && (
                           <motion.div
                             layoutId="kana-table-highlight"
                             className="absolute inset-0 rounded-2xl bg-amber-100 dark:bg-amber-400/20 shadow-[0_0_20px_rgba(251,191,36,0.15)]"
-                            transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 32,
+                            }}
                           />
                         )}
                         <div className="relative z-10 flex items-center gap-2">
-                          <span className={`text-xl font-black leading-none ${isCurrentCharacter ? "text-amber-500 dark:text-amber-300" : "text-slate-700 dark:text-white"}`}>
+                          <span
+                            className={`text-xl font-black leading-none ${isCurrentCharacter ? "text-amber-500 dark:text-amber-300" : "text-slate-700 dark:text-white"}`}
+                          >
                             {word.kana}
                           </span>
                           <SpeakButton text={word.kana} />
-                          <span className={`text-xs font-bold uppercase tracking-widest ${isCurrentCharacter ? "text-amber-500 dark:text-amber-200/90" : "text-slate-400 dark:text-white/40"}`}>
+                          <span
+                            className={`text-xs font-bold uppercase tracking-widest ${isCurrentCharacter ? "text-amber-500 dark:text-amber-200/90" : "text-slate-400 dark:text-white/40"}`}
+                          >
                             {word.romaji}
                           </span>
                         </div>
@@ -487,10 +517,14 @@ function KanaPracticePage() {
                 </div>
               ) : (
                 <div className="overflow-x-auto pb-4">
-                  <div className={`grid gap-1 sm:gap-2 ${isGojuonMode ? "min-w-[600px] grid-cols-11 max-w-5xl mx-auto" : "grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10"}`}>
+                  <div
+                    className={`grid gap-1 sm:gap-2 ${isGojuonMode ? "min-w-[600px] grid-cols-11 max-w-5xl mx-auto" : "grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10"}`}
+                  >
                     {displayCharacters.map((character) => {
                       if (character.empty) {
-                        return <div key={character.id} className="col-span-1"></div>;
+                        return (
+                          <div key={character.id} className="col-span-1"></div>
+                        );
                       }
 
                       const isCurrentCharacter =
@@ -501,16 +535,21 @@ function KanaPracticePage() {
                           type="button"
                           key={character.id}
                           onClick={() => speak(character.kana)}
-                          className={`relative cursor-pointer rounded-2xl border p-2 text-center transition-colors duration-300 ${isCurrentCharacter
-                            ? "border-amber-400/60 text-amber-500 dark:text-amber-300 z-10"
-                            : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/5 bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white/80 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/20 hover:bg-white/80 dark:hover:bg-white/5"
-                            }`}
+                          className={`relative cursor-pointer rounded-2xl border p-2 text-center transition-colors duration-300 ${
+                            isCurrentCharacter
+                              ? "border-amber-400/60 text-amber-500 dark:text-amber-300 z-10"
+                              : "border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:border-white/5 bg-white/70 dark:bg-black/40 text-slate-700 dark:text-white/80 hover:border-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:hover:border-white/20 hover:bg-white/80 dark:hover:bg-white/5"
+                          }`}
                         >
                           {isCurrentCharacter && (
                             <motion.div
                               layoutId="kana-table-highlight"
                               className="absolute inset-0 rounded-2xl bg-amber-100 dark:bg-amber-400/20 shadow-[0_0_20px_rgba(251,191,36,0.15)]"
-                              transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 400,
+                                damping: 32,
+                              }}
                             />
                           )}
                           <div className="relative z-10 text-2xl sm:text-3xl font-black leading-none">
@@ -528,10 +567,9 @@ function KanaPracticePage() {
                 </div>
               )}
             </div>
-          </motion.div>
-        )}
+          </div>
+        </motion.div>
       </AnimatePresence>
-
       {/* Footer info */}
       <div className="mt-12 text-center text-slate-400 dark:text-white/40 text-xs font-medium tracking-widest uppercase flex flex-col gap-2">
         <p>

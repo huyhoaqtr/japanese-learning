@@ -44,7 +44,8 @@ function LessonDetailPage() {
             Bài học chưa sẵn sàng
           </h1>
           <p className="text-sm font-medium text-slate-500 dark:text-white/50 mb-8">
-            Bài học này chưa có nội dung hoặc không tồn tại. Quay lại danh sách để chọn bài khác.
+            Bài học này chưa có nội dung hoặc không tồn tại. Quay lại danh sách
+            để chọn bài khác.
           </p>
           <Link
             to="/bai-hoc"
@@ -90,7 +91,9 @@ function LessonDetailPage() {
               )}
               <span
                 className={`relative z-10 ${
-                  isActive ? "text-slate-900" : "text-slate-500 dark:text-white/50"
+                  isActive
+                    ? "text-slate-900"
+                    : "text-slate-500 dark:text-white/50"
                 }`}
               >
                 {tab.label}
@@ -106,7 +109,7 @@ function LessonDetailPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
-        {activeTab === "vocab" && (
+        <div className={activeTab === "vocab" ? "" : "hidden"}>
           <div className="flex flex-col gap-6">
             <VocabTable items={lesson.vocab} />
             {lesson.keyPhrases?.length > 0 && (
@@ -115,19 +118,35 @@ function LessonDetailPage() {
             {lesson.countryVocab?.length > 0 && (
               <PhraseList title="Tên nước" items={lesson.countryVocab} />
             )}
-            {lesson.fictionalNames?.length > 0 && (
-              <PhraseList title="Tên giả định dùng trong bài học" items={lesson.fictionalNames} />
+            {lesson.placeVocab?.length > 0 && (
+              <PhraseList title="Địa danh" items={lesson.placeVocab} />
             )}
+            {lesson.fictionalNames?.length > 0 && (
+              <PhraseList
+                title="Tên giả định dùng trong bài học"
+                items={lesson.fictionalNames}
+              />
+            )}
+          </div>
+        </div>
+
+        <div className={activeTab === "translation" ? "" : "hidden"}>
+          <TranslationSection translation={lesson.translation} />
+        </div>
+
+        {lesson.reference && (
+          <div className={activeTab === "reference" ? "" : "hidden"}>
+            <ReferenceTable table={lesson.reference} />
           </div>
         )}
 
-        {activeTab === "translation" && <TranslationSection translation={lesson.translation} />}
+        <div className={activeTab === "grammar" ? "" : "hidden"}>
+          <GrammarSection grammar={lesson.grammar} />
+        </div>
 
-        {activeTab === "reference" && lesson.reference && <ReferenceTable table={lesson.reference} />}
-
-        {activeTab === "grammar" && <GrammarSection grammar={lesson.grammar} />}
-
-        {activeTab === "practice" && <VocabPractice vocab={lesson.vocab} />}
+        <div className={activeTab === "practice" ? "" : "hidden"}>
+          <VocabPractice vocab={lesson.vocab} />
+        </div>
       </motion.div>
     </div>
   );

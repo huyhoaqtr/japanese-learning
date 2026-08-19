@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-sitemap.js && vite build",
+    "build": "node scripts/generate-sitemap.js && vite build && node scripts/prerender.js",
     "sitemap": "node scripts/generate-sitemap.js",
+    "prerender": "node scripts/prerender.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -25,6 +26,7 @@
     "@vitejs/plugin-react": "^6.0.4",
     "esbuild": "^0.28.2",
     "oxlint": "^1.75.0",
+    "puppeteer": "^24.43.1",
     "vite": "^8.2.0"
   }
 }

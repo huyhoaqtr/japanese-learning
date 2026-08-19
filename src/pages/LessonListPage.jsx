@@ -40,14 +40,14 @@ function LessonListPage() {
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
       >
         {lessons.map((lesson) => {
           const isAvailable = lesson.status === "available";
 
           const cardContent = (
             <div
-              className={`glass-panel rounded-3xl p-6 flex flex-col h-full ${
+              className={`glass-panel rounded-3xl p-4 sm:p-6 flex flex-col h-full ${
                 isAvailable ? "group" : "opacity-60"
               }`}
             >
@@ -56,9 +56,9 @@ function LessonListPage() {
                   {lesson.number}
                 </span>
                 {!isAvailable && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-200/80 dark:bg-white/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-white/50">
+                  <span className="inline-flex items-center gap-1 rounded-lg bg-slate-200/80 dark:bg-white/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-white/50">
                     <Sparkles className="h-3 w-3" />
-                    Sắp ra mắt
+                    Soon
                   </span>
                 )}
               </div>

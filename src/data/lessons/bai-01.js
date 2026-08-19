@@ -86,7 +86,9 @@ const bai01 = {
     { jp: "ドイツ", vi: "Đức" },
     { jp: "日本", vi: "Nhật Bản" },
     { jp: "ブラジル", vi: "Braxin" },
+    { jp: "ベトナム", vi: "Việt Nam" },
   ],
+  placeVocab: [{ jp: "ハティン", vi: "Hà Tĩnh" }],
   fictionalNames: [
     { jp: "IMC／パワー電気／ブラジルエアー", vi: "tên công ty giả định" },
     { jp: "AKC", vi: "tên tổ chức giả định" },
@@ -143,6 +145,30 @@ const bai01 = {
         },
       ],
     },
+    selfIntroExercise: {
+      instruction:
+        "Học thuộc kỹ từ vựng, áp dụng từ vựng đã học để nói các câu sau bằng tiếng Nhật:",
+      prompts: [
+        "Tôi tên là...",
+        "Tôi ... tuổi",
+        "Công việc của bản thân",
+        "Tôi đến từ...",
+        "Rất mong nhận được sự giúp đỡ từ phía anh/chị/bạn",
+      ],
+      sampleAnswer: {
+        lines: [
+          { jp: "はじめまして。", vi: "Xin chào (lời chào khi gặp lần đầu)." },
+          { jp: "わたしは ホアンです。", vi: "Tôi tên là Hoàng." },
+          { jp: "わたしは 24さいです。", vi: "Tôi 24 tuổi." },
+          {
+            jp: "わたしは プリマソリューションズの ITエンジニアです。",
+            vi: "Tôi là kỹ sư IT của công ty Prima Solutions.",
+          },
+          { jp: "わたしは ベトナムの ハティンから きました。", vi: "Tôi đến từ Hà Tĩnh, Việt Nam." },
+          { jp: "どうぞ よろしく おねがいします。", vi: "Rất mong nhận được sự giúp đỡ từ phía anh/chị/bạn." },
+        ],
+      },
+    },
   },
   reference: {
     title: "国・人・ことば — Nước, người & ngôn ngữ",
@@ -182,13 +208,13 @@ const bai01 = {
         {
           subtitle: "Trợ từ は",
           body: "Trợ từ は biểu thị rằng danh từ đứng trước nó là chủ đề của câu văn. Người nói đặt は sau chủ đề mà mình muốn nói đến và xây dựng thành câu văn bằng cách thêm vào phía sau は những thông tin trần thuật vị ngữ.",
-          examples: [{ jp: "① わたしは マイク・ミラーです。", vi: "Tôi là Mike Miller." }],
+          examples: [{ jp: "わたしは マイク・ミラーです。", vi: "Tôi là Mike Miller." }],
           note: "Trợ từ は phát âm là わ.",
         },
         {
           subtitle: "です",
           body: "Danh từ đi cùng です để tạo thành vị ngữ. です vừa biểu thị ý nghĩa phán đoán, khẳng định, vừa biểu thị thái độ lịch sự đối với người nghe. です biến đổi hình thức trong câu phủ định (xem mục 2) và trong biểu thị thì quá khứ (xem Bài 12).",
-          examples: [{ jp: "② わたしは 会社員です。", vi: "Tôi là nhân viên công ty." }],
+          examples: [{ jp: "わたしは 会社員です。", vi: "Tôi là nhân viên công ty." }],
         },
       ],
     },
@@ -198,7 +224,7 @@ const bai01 = {
       sections: [
         {
           body: "じゃ（では）ありません là thể phủ định của です。じゃありません thường được sử dụng trong hội thoại hàng ngày, còn ではありません được sử dụng trong các bài phát biểu trang trọng hay trong văn viết.",
-          examples: [{ jp: "③ サントスさんは 学生じゃ ありません。", vi: "Anh Santos không phải là sinh viên." }],
+          examples: [{ jp: "サントスさんは 学生じゃ ありません。", vi: "Anh Santos không phải là sinh viên." }],
           note: "Trợ từ は trong では đọc là わ.",
         },
       ],
@@ -215,9 +241,9 @@ const bai01 = {
           subtitle: "Câu nghi vấn để xác nhận xem nội dung của câu văn là đúng hay sai",
           body: "Tạo thành câu nghi vấn bằng cách dùng trợ từ か ở cuối câu mà không thay đổi trật tự từ trong câu. Câu nghi vấn loại này xác nhận xem nội dung của câu văn là đúng hay sai, trường hợp đúng thì trả lời là はい, không đúng thì trả lời là いいえ。",
           examples: [
-            { jp: "④ ミラーさんは アメリカ人ですか。", vi: "Anh Miller có phải là người Mỹ không?" },
+            { jp: "ミラーさんは アメリカ人ですか。", vi: "Anh Miller có phải là người Mỹ không?" },
             { jp: "……はい、アメリカ人です。", vi: "…Vâng, anh ấy là người Mỹ." },
-            { jp: "⑤ ミラーさんは 先生ですか。", vi: "Anh Miller có phải là giáo viên không?" },
+            { jp: "ミラーさんは 先生ですか。", vi: "Anh Miller có phải là giáo viên không?" },
             { jp: "……いいえ、先生じゃ ありません。", vi: "…Không, anh ấy không phải là giáo viên." },
           ],
         },
@@ -225,7 +251,7 @@ const bai01 = {
           subtitle: "Câu nghi vấn có từ nghi vấn",
           body: "Thay nghi vấn từ vào vị trí của nội dung mà bạn muốn hỏi, thêm trợ từ か vào cuối câu. Trật tự từ không thay đổi.",
           examples: [
-            { jp: "⑥ あの 方は どなたですか。", vi: "Người kia là ai?" },
+            { jp: "あの 方は どなたですか。", vi: "Người kia là ai?" },
             { jp: "……[あの 方は] ミラーさんです。", vi: "…Người đó là anh Miller." },
           ],
         },
@@ -239,7 +265,7 @@ const bai01 = {
           body: "Trợ từ も được dùng khi trình bày một nội dung tương tự như ở câu văn trước.",
           examples: [
             {
-              jp: "⑦ ミラーさんは 会社員です。グプタさんも 会社員です。",
+              jp: "ミラーさんは 会社員です。グプタさんも 会社員です。",
               vi: "Anh Miller là nhân viên công ty. Anh Gupta cũng là nhân viên công ty.",
             },
           ],
@@ -252,7 +278,7 @@ const bai01 = {
       sections: [
         {
           body: "Trong trường hợp Danh từ1 ở trước bổ nghĩa cho Danh từ2 ở sau thì hai danh từ đó được nối với nhau bằng trợ từ の. Ở bài 1, Danh từ1 biểu thị nơi sở thuộc của Danh từ2.",
-          examples: [{ jp: "⑧ ミラーさんは IMCの 社員です。", vi: "Anh Miller là nhân viên công ty IMC." }],
+          examples: [{ jp: "ミラーさんは IMCの 社員です。", vi: "Anh Miller là nhân viên công ty IMC." }],
         },
       ],
     },
@@ -262,12 +288,12 @@ const bai01 = {
       sections: [
         {
           body: "Trong tiếng Nhật, từ さん được dùng sau họ hoặc tên của người nghe hoặc người ở ngôi thứ 3. Vì sử dụng さん để thể hiện tính lịch sự nên không dùng sau họ hoặc tên của chính người nói. Đối với trẻ em thì từ ちゃん với sắc thái thân mật sẽ được dùng thay cho さん.",
-          examples: [{ jp: "⑨ あの 方は ミラーさんです。", vi: "Người kia là anh Miller." }],
+          examples: [{ jp: "あの 方は ミラーさんです。", vi: "Người kia là anh Miller." }],
         },
         {
           body: "Khi gọi, nếu trường hợp đã biết họ hoặc tên của người nghe thì không dùng あなた mà thêm さん vào sau họ hoặc tên người đó để gọi.",
           examples: [
-            { jp: "⑩ 鈴木：ミラーさんは 学生ですか。", vi: "Suzuki: Anh Miller có phải là sinh viên không?" },
+            { jp: "鈴木：ミラーさんは 学生ですか。", vi: "Suzuki: Anh Miller có phải là sinh viên không?" },
             { jp: "ミラー：いいえ、会社員です。", vi: "Miller: Không, tôi là nhân viên công ty." },
           ],
           note: "あなた được sử dụng trong những quan hệ cực kỳ thân mật như vợ chồng, người yêu, v.v.. Do đó cần thiết phải chú ý khi sử dụng ngoài những trường hợp trên vì có thể sẽ gây cho đối phương ấn tượng không tốt.",
