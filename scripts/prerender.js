@@ -2,8 +2,27 @@ import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import puppeteer from "puppeteer";
+import puppeteerCore from "puppeteer-core";
 import { getPublicRoutes } from "./routes.js";
+
+// Trên Vercel, Chrome đầy đủ mà `puppeteer` tải về thiếu thư viện hệ thống
+// (libnspr4.so...) vì môi trường build không có quyền cài package hệ thống.
+// @sparticuz/chromium là bản Chromium build riêng cho môi trường serverless,
+// dùng cùng puppeteer-core (chỉ là driver, không kèm browser). Máy dev thường
+// (macOS/Windows) vẫn dùng `puppeteer` đầy đủ như cũ.
+async function launchBrowser() {
+  if (process.env.VERCEL) {
+    const chromium = (await import("@sparticuz/chromium")).default;
+    return puppeteerCore.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    });
+  }
+
+  const puppeteer = (await import("puppeteer")).default;
+  return puppeteer.launch({ headless: true });
+}
 
 const PORT = 4173;
 const BASE_URL = `http://localhost:${PORT}`;
@@ -54,7 +73,7 @@ async function main() {
   try {
     await waitForServer(BASE_URL);
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await launchBrowser();
 
     try {
       for (const route of routes) {
